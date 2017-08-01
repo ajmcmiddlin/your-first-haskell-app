@@ -1,4 +1,8 @@
-# Parley
+# The app
+
+## Parley
+
+> To have a discussion, especially with an enemy.
 
 ## Problem
 
@@ -28,3 +32,10 @@ Parley
 
 <!-- Parley is an example of a web application only. No thought has been given to -->
 <!-- protection from malicious users. -->
+
+## Operations
+
+ - Add to a topic
+ - View comments for a topic
+ - List topics
+
