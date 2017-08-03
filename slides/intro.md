@@ -8,19 +8,23 @@ How do you apply concepts to a real application?
 
 ##
 
-How do I find which packages to use and how to use them?
+How do you find which packages to use and how to use them?
 
 ##
 
-How do I setup a project?
+How do you setup a project?
 
-## Myths
-
-##
-
-Haskell isn't for writing "normal" applications.
+## My experience
 
 ##
 
-Haskell is too hard to use for my application.
+<img alt="learn all the things" src="images/learn-all-the-things.jpg" />
+
+## 
+
+Working examples 
+
+##
+
+Write the damn code!
 
