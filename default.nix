@@ -30,6 +30,9 @@ in
           $src/slides/intro.md \
           $src/slides/the-app.md \
           $src/slides/types.md \
+          $src/slides/data-flow.md \
+          $src/slides/configuration.md \
+          $src/slides/the-end.md \
           > slides.md
       pandoc -t revealjs --template=$src/template.revealjs --variable=codedir:$out --variable=transition:none --highlight-style=zenburn -s slides.md -o index.html
       rm slides.md
