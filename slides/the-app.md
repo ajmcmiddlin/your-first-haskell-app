@@ -39,3 +39,30 @@ Parley
  - View comments for a topic
  - List topics
 
+## Assumed knowledge
+
+ - Haskell syntax
+ - `Maybe`
+ - `Either`
+ - `Monoid`
+ - `Functor`
+ - `Applicative`
+ - `Monad`
+
+##
+
+..._BUT_ you haven't written an application
+
+## Libraries
+
+##
+
+<div style="text-align: left; padding-left: 20%;">
+`aeson`  
+`sqlite-simple`  
+`optparse-applicative`  
+`wai`  
+`warp`  
+`sqlite-simple-errors`
+</div>
+
