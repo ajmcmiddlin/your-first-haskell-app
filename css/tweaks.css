@@ -32,8 +32,11 @@
 }
 
 .reveal section img.logo {
-    border: none;
     background: white;
+}
+
+.reveal section img {
+    border: none;
 }
 
 blockquote {
