@@ -2,12 +2,20 @@
 
 ##
 
+<!--
+Haskell programmers talk a lot about types, and with good reason.
+
+ - Model the domain
+ - Reduce the number of possible programs
+ - Less need for documentation
+-->
+
 ```haskell
 data Comment =
-  Comment { _commentId      :: Integer
-          , _commentTopic   :: Text
-          , _commentComment :: Text
-          , _commentTime    :: UTCTime
+  Comment { _commentId    :: Integer
+          , _commentTopic :: Topic
+          , _commentBody  :: CommentText
+          , _commentTime  :: UTCTime
           }
           deriving Show
 ```
@@ -19,6 +27,39 @@ data ParleyRequest = AddRequest Topic CommentText
                    | ViewRequest Topic
                    | ListRequest
 ```
+
+<!--
+Mentioned our "spec" before with 3 operations. Put them in a sum type.
+CLOSED TYPE - there are exactly 3 possible requests we'll have to handle. Compare
+that to the universe of strings or an open inheritance hierarchy.
+
+With warnings turned on and warnings as errors, we get a compile-time error anywhere our code
+doesn't account for the new request.
+-->
+
+##
+
+```haskell
+data Error = NoTopicInRequest
+           | UnknownRoute
+           | NoCommentText
+           | SQLiteError SQLiteResponse
+```
+
+<!--
+Note that we use sqlite-simple-errors to catch SQLite exceptions and turn them into errors
+Same benefits of sum types - these are ALL possible errors.
+-->
+
+##
+
+```haskell
+data Config = Config { port   :: Port
+                     , dbPath :: FilePath
+                     }
+```
+
+## Smart constructors
 
 ##
 
@@ -42,13 +83,17 @@ We use newtypes as "free" wrappers around Text fields.
 ##
 
 ```haskell
-data Error = NoTopicInRequest
-           | UnknownRoute
-           | NoCommentText
-           | SQLiteError SQLiteResponse
+class FromRow a where
+  fromRow :: RowParser a
+
+module Parley.Types ( ...
+                    , Topic (getTopic)
+                    , CommentText (getComment)
+                    ...
+                    )
 ```
 
-<!-- Note that we use sqlite-simple-errors to catch SQLite exceptions and turn them into errors -->
+## Instances
 
 ##
 
