@@ -59,6 +59,17 @@ data Config = Config { port   :: Port
                      }
 ```
 
+##
+
+```haskell
+data ContentType = PlainText
+                 | JSON
+
+render :: ContentType -> ByteString
+render PlainText = "text/plain"
+render JSON      = "text/json"
+```
+
 ## Smart constructors
 
 ##
@@ -83,12 +94,33 @@ We use newtypes as "free" wrappers around Text fields.
 ##
 
 ```haskell
-class FromRow a where
-  fromRow :: RowParser a
-
 module Parley.Types ( ...
                     , Topic (getTopic)
                     , CommentText (getComment)
+                    ...
+                    )
+```
+
+##
+
+```haskell
+mkTopic :: Text -> Either Error Topic
+mkTopic "" = Left NoTopicInRequest
+mkTopic t  = pure $ Topic t
+
+mkCommentText :: Text -> Either Error CommentText
+mkCommentText "" = Left NoCommentText
+mkCommentText t  = pure $ CommentText t
+```
+
+##
+
+```haskell
+module Parley.Types ( ...
+                    , Topic (getTopic)
+                    , CommentText (getComment)
+                    , mkTopic
+                    , mkCommentText
                     ...
                     )
 ```
@@ -98,6 +130,9 @@ module Parley.Types ( ...
 ##
 
 ```haskell
+class FromRow a where
+  fromRow :: RowParser a
+
 instance FromRow Comment where
   fromRow = Comment <$> field <*> field <*> field <*> field
 ```
