@@ -68,41 +68,33 @@ parseOptions configFilePath = do
 ##
 
 ```haskell
-makeConfig pc = do
-  let lastToEither e (Last m) = maybe (Left e) Right m
-  port' <- lastToEither "Missing port" (pcPort pc)
-  dbPath' <- lastToEither "Missing database path" (pcDBPath pc)
-  pure Config {port = port', dbPath = dbPath'}
-{-# LANGUAGE RecordWildCards #-}
-
 makeConfig :: PartialConfig -> Either String Config
-makeConfig PartialConfig {..} = do
  
-  port <- lastToEither "Missing port" pcPort
-  dbPath <- lastToEither "Missing database path" pcDBPath
+ 
+ 
+ 
  
 ```
 
 ##
 
 ```haskell
+makeConfig :: PartialConfig -> Either String Config
 makeConfig pc = do
   let lastToEither e (Last m) = maybe (Left e) Right m
-  port' <- lastToEither "Missing port" (pcPort pc)
-  dbPath' <- lastToEither "Missing database path" (pcDBPath pc)
-  pure Config {port = port', dbPath = dbPath'}
+ 
+ 
+ 
 ```
 
 ##
 
 ```haskell
-{-# LANGUAGE RecordWildCards #-}
-
 makeConfig :: PartialConfig -> Either String Config
-makeConfig PartialConfig {..} = do
+makeConfig pc = do
   let lastToEither e (Last m) = maybe (Left e) Right m
-  port <- lastToEither "Missing port" pcPort
-  dbPath <- lastToEither "Missing database path" pcDBPath
-  pure Config {..}
+  port' <- lastToEither "Missing port" (pcPort pc)
+  dbPath' <- lastToEither "Missing DB path" (pcDBPath pc)
+  pure Config {port = port', dbPath = dbPath'}
 ```
 
