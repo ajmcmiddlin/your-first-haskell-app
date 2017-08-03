@@ -1,17 +1,21 @@
 # The app
 
-## Parley
+##
 
+<img alt="meanwhile, at the YouTube comment section" src="images/comment-section.jpg" />
+
+##
+
+> Par·ley n.  
+>   
 > To have a discussion, especially with an enemy.
 
-## Problem
+## Requirements
+
+##
 
 I want comments on my static blog, but I don't want to deploy a database or use
 a third party service
-
-## Solution
-
-Parley
 
 ##
 
@@ -30,14 +34,13 @@ Parley
 
 **NOT FOR PRODUCTION USE**
 
-<!-- Parley is an example of a web application only. No thought has been given to -->
-<!-- protection from malicious users. -->
+## Spec
 
-## Operations
-
- - Add to a topic
- - View comments for a topic
- - List topics
+Operation                     Route
+---------------------------   ---------------
+Add to a topic                /&lt;topic&gt;/add
+View comments for a topic     /&lt;topic&gt;/view
+List topics                   /list
 
 ## Assumed knowledge
 
@@ -57,12 +60,12 @@ Parley
 
 ##
 
-<div style="text-align: left; padding-left: 20%;">
-`aeson`  
-`sqlite-simple`  
-`optparse-applicative`  
-`wai`  
-`warp`  
-`sqlite-simple-errors`
-</div>
+Library                     Purpose
+------------------------    ----------------------------
+`aeson`                     JSON encoding
+`sqlite-simple`             Talk to SQLite
+`sqlite-simple-errors`      Exceptions to values
+`optparse-applicative`      Command line parsing
+`wai`                       Web application interface
+`warp`                      Web server
 
