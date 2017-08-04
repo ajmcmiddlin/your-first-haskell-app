@@ -17,6 +17,16 @@
 I want comments on my static blog, but I don't want to deploy a database or use
 a third party service
 
+## Spec
+
+##
+
+Operation                     Route
+---------------------------   ---------------
+Add to a topic                /&lt;topic&gt;/add
+View comments for a topic     /&lt;topic&gt;/view
+List topics                   /list
+
 ##
 
 <div id="logos">
@@ -34,23 +44,16 @@ a third party service
 
 **NOT FOR PRODUCTION USE**
 
-## Spec
-
-Operation                     Route
----------------------------   ---------------
-Add to a topic                /&lt;topic&gt;/add
-View comments for a topic     /&lt;topic&gt;/view
-List topics                   /list
-
 ## Assumed knowledge
 
- - Haskell syntax
- - `Maybe`
- - `Either`
- - `Monoid`
- - `Functor`
- - `Applicative`
- - `Monad`
+##
+
+`Maybe`  
+`Either`  
+`Monoid`  
+`Functor`  
+`Applicative`  
+`Monad`  
 
 ##
 
