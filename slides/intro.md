@@ -26,5 +26,5 @@ Working examples
 
 ##
 
-Write the damn code!
+Write the code!
 
