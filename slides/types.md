@@ -11,13 +11,11 @@ Haskell programmers talk a lot about types, and with good reason.
 -->
 
 ```haskell
-data Comment =
-  Comment { _commentId    :: Integer
-          , _commentTopic :: Topic
-          , _commentBody  :: CommentText
-          , _commentTime  :: UTCTime
-          }
-          deriving Show
+data Comment = Comment CommentId
+                       Topic
+                       CommentText
+                       UTCTime
+               deriving Show
 ```
 
 ##
