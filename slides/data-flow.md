@@ -34,10 +34,54 @@ app :: Connection
     -> Request
     -> (Response -> IO ResponseReceived)
     -> IO ResponseReceived
-app conn request response = do
-  rq <- mkRequest request
-  rsp <- either (pure . Left) (handleRequest conn) rq
-  response $ either handleError id rsp
+app conn request cb = do
+ 
+ 
+
+ 
+ 
+ 
+  erq <- mkRequest request
+  
+  
+```
+
+##
+
+```haskell
+app :: Connection
+    -> Request
+    -> (Response -> IO ResponseReceived)
+    -> IO ResponseReceived
+app conn request cb = do
+  let handleRq (Left e) = pure (Left e)
+      handleRq (Right r) = handleRequest conn r
+
+      
+      
+
+  erq <- mkRequest request
+  ersp <- handleRq erq
+  
+```
+
+##
+
+```haskell
+app :: Connection
+    -> Request
+    -> (Response -> IO ResponseReceived)
+    -> IO ResponseReceived
+app conn request cb = do
+  let handleRq (Left e) = pure (Left e)
+      handleRq (Right r) = handleRequest conn r
+
+      handleRsp (Left e) = handleError e
+      handleRsp (Right rsp) = rsp
+
+  erq <- mkRequest request
+  ersp <- handleRq erq
+  cb (handleRsp ersp)
 ```
 
 ##
@@ -54,6 +98,8 @@ handleError :: Error
             -> Response
 ```
 
+## Routing
+
 ##
 
 ```haskell
@@ -61,7 +107,22 @@ mkRequest :: Request
           -> IO (Either Error ParleyRequest)
 mkRequest request =
   case pathInfo request of
-    [t,"add"]  -> mkAddRequest t <$> strictRequestBody request
+ 
+
+ 
+    ["list"]   -> pure (Right ListRequest)
+    _          -> pure (Left UnknownRoute)
+```
+
+##
+
+```haskell
+mkRequest :: Request
+          -> IO (Either Error ParleyRequest)
+mkRequest request =
+  case pathInfo request of
+ 
+ 
     [t,"view"] -> pure $ mkViewRequest t
     ["list"]   -> pure (Right ListRequest)
     _          -> pure (Left UnknownRoute)
@@ -70,14 +131,30 @@ mkRequest request =
 ##
 
 ```haskell
+mkRequest :: Request
+          -> IO (Either Error ParleyRequest)
+mkRequest request =
+  case pathInfo request of
+    [t,"add"]  -> fmap (mkAddRequest t)
+                       strictRequestBody request
+    [t,"view"] -> pure $ mkViewRequest t
+    ["list"]   -> pure (Right ListRequest)
+    _          -> pure (Left UnknownRoute)
+```
+
+## Request -> Response
+
+##
+
+```haskell
 handleRequest :: Connection
               -> ParleyRequest
               -> IO (Either Error Response)
-handleRequest conn r =
-  case r of
-    AddRequest topic comment -> handleAdd conn topic comment
-    ViewRequest t            -> dbJSONResponse $ getComments conn t
-    ListRequest              -> dbJSONResponse $ getTopics conn
+handleRequest conn rq =
+  case rq of
+    AddRequest t c -> handleAdd conn t c
+    ViewRequest t  -> dbJSONResponse $ getComments conn t
+    ListRequest    -> dbJSONResponse $ getTopics conn
 ```
 
 ##
@@ -86,10 +163,33 @@ handleRequest conn r =
 dbJSONResponse :: ToJSON a
                => IO (Either Error a)
                -> IO (Either Error Response)
-dbJSONResponse =
-  let responseFromJSON =
-        responseLBS HT.status200 [contentHeader JSON] . encode
-   in (=<<) (pure . fmap responseFromJSON)
+dbJSONResponse iea = do
+  let responseFromJSON a =
+        responseLBS HT.status200
+                    [contentHeader JSON]
+                    (encode a)
+  ea <- iea
+  pure (fmap responseFromJSON ea)
+```
 
+## Error -> Response
+
+##
+
+```haskell
+handleError :: Error -> Response
+handleError e =
+  case e of
+    NoTopicInRequest ->
+      rsp HT.status400 "Empty topics not allowed"
+    UnknownRoute ->
+      rsp HT.status404 "Not found :("
+    NoCommentText ->
+      rsp HT.status400 "Empty body text not allowed"
+    SQLiteError se ->
+      rsp HT.status500 (dbError se)
+  where
+    rsp s t = responseLBS s [contentHeader PlainText] t
+    dbError se = "Database error: " <> LBS8.pack (show se)
 ```
 
