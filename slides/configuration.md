@@ -57,7 +57,7 @@ instance Monoid PartialConfig where
 ##
 
 ```haskell
-parseOptions :: FilePath -> IO (Either String Config)
+parseOptions :: FilePath -> IO (Either ConfigError Config)
 parseOptions configFilePath = do
   fileConfig <- parseConfigFile configFilePath
   commandLineConfig <- parseCommandLine
@@ -68,7 +68,7 @@ parseOptions configFilePath = do
 ##
 
 ```haskell
-makeConfig :: PartialConfig -> Either String Config
+makeConfig :: PartialConfig -> Either ConfigError Config
  
  
  
@@ -79,7 +79,7 @@ makeConfig :: PartialConfig -> Either String Config
 ##
 
 ```haskell
-makeConfig :: PartialConfig -> Either String Config
+makeConfig :: PartialConfig -> Either ConfigError Config
 makeConfig pc = do
   let lastToEither e (Last m) = maybe (Left e) Right m
  
@@ -90,11 +90,11 @@ makeConfig pc = do
 ##
 
 ```haskell
-makeConfig :: PartialConfig -> Either String Config
+makeConfig :: PartialConfig -> Either ConfigError Config
 makeConfig pc = do
   let lastToEither e (Last m) = maybe (Left e) Right m
-  port' <- lastToEither "Missing port" (pcPort pc)
-  dbPath' <- lastToEither "Missing DB path" (pcDBPath pc)
+  port' <- lastToEither MissingPort (pcPort pc)
+  dbPath' <- lastToEither MissingDbPath (pcDBPath pc)
   pure Config {port = port', dbPath = dbPath'}
 ```
 
