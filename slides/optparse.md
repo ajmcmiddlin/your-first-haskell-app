@@ -1,16 +1,10 @@
-# optparse applicative
+# Command Line Arguments
+
+## optparse-applicative
 
 ##
 
 <img src="images/job-done.jpg" alt="job done!" />
-
-##
-
-`execParser :: Parser     a -> IO a`
-
-##
-
-`execParser :: ParserInfo a -> IO a`
 
 ##
 
@@ -33,6 +27,26 @@ Available options:
 partialConfigParser :: Parser PartialConfig
 partialConfigParser =
   PartialConfig <$> portParser <*> dbParser
+```
+
+##
+
+`execParser :: Parser     a -> IO a`
+
+##
+
+`execParser :: ParserInfo a -> IO a`
+
+##
+
+```haskell
+dbParser :: Parser (Last FilePath)
+dbParser =
+  
+  
+  
+  
+   in Last <$> optional (strOption mods)
 ```
 
 ##
@@ -62,7 +76,7 @@ portParser =
 ##
 
 > A parser for things is a function from strings to lists of pairs of things and strings.  
-> <p style="text-align: right; padding-right: 2em; display: block;">-- Conor McBride</p>
+> <p style="text-align: right; padding-right: 2em; display: block;">-- Fritz Ruehr</p>
 
 ##
 
@@ -82,6 +96,17 @@ instance Read Port where
 ##
 
 `execParser :: ParserInfo a -> IO a`
+
+##
+
+```haskell
+commandLineParser :: ParserInfo PartialConfig
+commandLineParser =
+  
+  
+  
+   in info (partialConfigParser <**> helper) mods
+```
 
 ##
 
