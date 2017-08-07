@@ -21,7 +21,7 @@ app :: Request
 ##
 
 ```haskell
-app :: Connection
+app :: ParleyDb
     -> Request
     -> (Response -> IO ResponseReceived)
     -> IO ResponseReceived
@@ -30,7 +30,7 @@ app :: Connection
 ##
 
 ```haskell
-app :: Connection
+app :: ParleyDb
     -> Request
     -> (Response -> IO ResponseReceived)
     -> IO ResponseReceived
@@ -49,7 +49,7 @@ app conn request cb = do
 ##
 
 ```haskell
-app :: Connection
+app :: ParleyDb
     -> Request
     -> (Response -> IO ResponseReceived)
     -> IO ResponseReceived
@@ -68,7 +68,7 @@ app conn request cb = do
 ##
 
 ```haskell
-app :: Connection
+app :: ParleyDb
     -> Request
     -> (Response -> IO ResponseReceived)
     -> IO ResponseReceived
@@ -90,7 +90,7 @@ app conn request cb = do
 mkRequest :: Request
           -> IO (Either Error ParleyRequest)
 
-handleRequest :: Connection
+handleRequest :: ParleyDb
               -> ParleyRequest
               -> IO (Either Error Response)
 
@@ -147,7 +147,7 @@ mkRequest request =
 ##
 
 ```haskell
-handleRequest :: Connection
+handleRequest :: ParleyDb
               -> ParleyRequest
               -> IO (Either Error Response)
 handleRequest conn rq =
