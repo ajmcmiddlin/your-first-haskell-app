@@ -42,7 +42,7 @@ List topics                   /list
 
 ##
 
-**NOT FOR PRODUCTION USE**
+**ONLY AN EDUCATIONAL EXAMPLE**
 
 <!-- Not because we can't, but in the interests of simplicity for teaching -->
 
