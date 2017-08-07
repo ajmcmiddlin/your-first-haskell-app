@@ -44,7 +44,7 @@ List topics                   /list
 
 **ONLY AN EDUCATIONAL EXAMPLE**
 
-<!-- Not because we can't, but in the interests of simplicity for teaching -->
+<!-- Not because we can't, but in the interests of simplicity of explanation in a 25 minute talk-->
 
 ## Assumed knowledge
 
