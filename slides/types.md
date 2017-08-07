@@ -21,6 +21,18 @@ data Comment = Comment CommentId
 ##
 
 ```haskell
+data DbComment =
+  DbComment { dbCommentId    :: Integer
+            , dbCommentTopic :: Text
+            , dbCommentBody  :: Text
+            , dbCommentTime  :: UTCTime
+            }
+            deriving Show
+```
+
+##
+
+```haskell
 data ParleyRequest = AddRequest Topic CommentText
                    | ViewRequest Topic
                    | ListRequest
@@ -131,8 +143,10 @@ module Parley.Types ( ...
 class FromRow a where
   fromRow :: RowParser a
 
-instance FromRow Comment where
-  fromRow = Comment <$> field <*> field <*> field <*> field
+field :: FromField a => RowParser a
+
+instance FromRow DbComment where
+  fromRow = DbComment <$> field <*> field <*> field <*> field
 ```
 
 <!--
