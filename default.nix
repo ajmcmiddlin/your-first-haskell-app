@@ -33,6 +33,7 @@ in
           $src/slides/data-flow.md \
           $src/slides/configuration.md \
           $src/slides/optparse.md \
+          $src/slides/db.md \
           $src/slides/the-end.md \
           > slides.md
       pandoc -t revealjs --template=$src/template.revealjs --variable=codedir:$out --variable=transition:none --highlight-style=zenburn -s slides.md -o index.html
