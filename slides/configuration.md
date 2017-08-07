@@ -2,7 +2,7 @@
 
 ##
 
-![partial options post](images/partial-options.png)
+<img alt="partial options post" src="images/partial-options.png" />
 
 ##
 
