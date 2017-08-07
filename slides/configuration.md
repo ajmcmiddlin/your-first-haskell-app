@@ -69,6 +69,7 @@ parseOptions configFilePath = do
 
 ```haskell
 makeConfig :: PartialConfig -> Either ConfigError Config
+
  
  
  
@@ -81,7 +82,8 @@ makeConfig :: PartialConfig -> Either ConfigError Config
 ```haskell
 makeConfig :: PartialConfig -> Either ConfigError Config
 makeConfig pc = do
-  let lastToEither e (Last m) = maybe (Left e) Right m
+  let lastToEither e (Last Nothing) = Left e
+      lastToEither _ (Last (Just v)) = Right v
  
  
  
@@ -92,7 +94,8 @@ makeConfig pc = do
 ```haskell
 makeConfig :: PartialConfig -> Either ConfigError Config
 makeConfig pc = do
-  let lastToEither e (Last m) = maybe (Left e) Right m
+  let lastToEither e (Last Nothing) = Left e
+      lastToEither _ (Last (Just v)) = Right v
   port' <- lastToEither MissingPort (pcPort pc)
   dbPath' <- lastToEither MissingDbPath (pcDBPath pc)
   pure Config {port = port', dbPath = dbPath'}
