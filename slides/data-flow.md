@@ -4,6 +4,9 @@
 
 > Web Application Interface: a low level interface between web servers and applications
 
+<!-- Standard interface for web applications - think Rack in Ruby, WSGI in Pythong.
+Can talk to multiple servers -->
+
 ##
 
 ```haskell
@@ -17,6 +20,11 @@ app :: Request
     -> (Response -> IO ResponseReceived)
     -> IO ResponseReceived
 ```
+
+<!--
+Still `Request -> Response` for our purposes.
+Callback is to ensure resources aren't cleaned up before response is evaluated - lazy IO
+-->
 
 ##
 
@@ -111,7 +119,7 @@ mkRequest request =
 
  
     ["list"]   -> pure (Right ListRequest)
-    _          -> pure (Left UnknownRoute)
+ 
 ```
 
 ##
@@ -122,10 +130,24 @@ mkRequest :: Request
 mkRequest request =
   case pathInfo request of
  
- 
+
     [t,"view"] -> pure (mkViewRequest t)
     ["list"]   -> pure (Right ListRequest)
-    _          -> pure (Left UnknownRoute)
+ 
+```
+
+##
+
+```haskell
+mkRequest :: Request
+          -> IO (Either Error ParleyRequest)
+mkRequest request =
+  case pathInfo request of
+    [t,"add"]  -> fmap (mkAddRequest t)
+                       (strictRequestBody request)
+    [t,"view"] -> pure (mkViewRequest t)
+    ["list"]   -> pure (Right ListRequest)
+ 
 ```
 
 ##
@@ -153,8 +175,79 @@ handleRequest :: ParleyDb
 handleRequest db rq =
   case rq of
     AddRequest t c -> handleAdd db t c
+ 
+ 
+```
+
+##
+
+```haskell
+handleRequest :: ParleyDb
+              -> ParleyRequest
+              -> IO (Either Error Response)
+handleRequest db rq =
+  case rq of
+    AddRequest t c -> handleAdd db t c
+    ViewRequest t  -> dbJSONResponse $ getComments db t
+ 
+```
+
+##
+
+```haskell
+handleRequest :: ParleyDb
+              -> ParleyRequest
+              -> IO (Either Error Response)
+handleRequest db rq =
+  case rq of
+    AddRequest t c -> handleAdd db t c
     ViewRequest t  -> dbJSONResponse $ getComments db t
     ListRequest    -> dbJSONResponse $ getTopics db
+```
+
+##
+
+```haskell
+dbJSONResponse :: ToJSON a
+               => IO (Either Error a)
+               -> IO (Either Error Response)
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+```
+
+##
+
+```haskell
+dbJSONResponse :: ToJSON a
+               => IO (Either Error a)
+               -> IO (Either Error Response)
+dbJSONResponse iea = do
+ 
+ 
+ 
+ 
+  ea <- iea
+ 
+```
+
+##
+
+```haskell
+dbJSONResponse :: ToJSON a
+               => IO (Either Error a)
+               -> IO (Either Error Response)
+dbJSONResponse iea = do
+ 
+ 
+ 
+ 
+  ea <- iea
+  pure (fmap responseFromJSON ea)
 ```
 
 ##
@@ -173,6 +266,82 @@ dbJSONResponse iea = do
 ```
 
 ## Error -> Response
+
+##
+
+```haskell
+handleError :: Error -> Response
+handleError e =
+  case e of
+ 
+ 
+    UnknownRoute ->
+      rsp HT.status404 "Not found :("
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+```
+
+##
+
+```haskell
+handleError :: Error -> Response
+handleError e =
+  case e of
+    NoTopicInRequest ->
+      rsp HT.status400 "Empty topics not allowed"
+    UnknownRoute ->
+      rsp HT.status404 "Not found :("
+    NoCommentText ->
+      rsp HT.status400 "Empty body text not allowed"
+ 
+ 
+ 
+ 
+ 
+```
+
+##
+
+```haskell
+handleError :: Error -> Response
+handleError e =
+  case e of
+    NoTopicInRequest ->
+      rsp HT.status400 "Empty topics not allowed"
+    UnknownRoute ->
+      rsp HT.status404 "Not found :("
+    NoCommentText ->
+      rsp HT.status400 "Empty body text not allowed"
+    SQLiteError se ->
+      rsp HT.status500 (dbError se)
+ 
+ 
+ 
+```
+
+##
+
+```haskell
+handleError :: Error -> Response
+handleError e =
+  case e of
+    NoTopicInRequest ->
+      rsp HT.status400 "Empty topics not allowed"
+    UnknownRoute ->
+      rsp HT.status404 "Not found :("
+    NoCommentText ->
+      rsp HT.status400 "Empty body text not allowed"
+    SQLiteError se ->
+      rsp HT.status500 (dbError se)
+  where
+ 
+    dbError se = "Database error: " <> LBS8.pack (show se)
+```
 
 ##
 
