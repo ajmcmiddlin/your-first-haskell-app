@@ -34,7 +34,7 @@ app :: ParleyDb
     -> Request
     -> (Response -> IO ResponseReceived)
     -> IO ResponseReceived
-app conn request cb = do
+app db request cb = do
  
  
 
@@ -53,9 +53,9 @@ app :: ParleyDb
     -> Request
     -> (Response -> IO ResponseReceived)
     -> IO ResponseReceived
-app conn request cb = do
+app db request cb = do
   let handleRq (Left e) = pure (Left e)
-      handleRq (Right r) = handleRequest conn r
+      handleRq (Right r) = handleRequest db r
 
       
       
@@ -72,9 +72,9 @@ app :: ParleyDb
     -> Request
     -> (Response -> IO ResponseReceived)
     -> IO ResponseReceived
-app conn request cb = do
+app db request cb = do
   let handleRq (Left e) = pure (Left e)
-      handleRq (Right r) = handleRequest conn r
+      handleRq (Right r) = handleRequest db r
 
       handleRsp (Left e) = handleError e
       handleRsp (Right rsp) = rsp
@@ -123,7 +123,7 @@ mkRequest request =
   case pathInfo request of
  
  
-    [t,"view"] -> pure $ mkViewRequest t
+    [t,"view"] -> pure (mkViewRequest t)
     ["list"]   -> pure (Right ListRequest)
     _          -> pure (Left UnknownRoute)
 ```
@@ -136,8 +136,8 @@ mkRequest :: Request
 mkRequest request =
   case pathInfo request of
     [t,"add"]  -> fmap (mkAddRequest t)
-                       strictRequestBody request
-    [t,"view"] -> pure $ mkViewRequest t
+                       (strictRequestBody request)
+    [t,"view"] -> pure (mkViewRequest t)
     ["list"]   -> pure (Right ListRequest)
     _          -> pure (Left UnknownRoute)
 ```
@@ -150,11 +150,11 @@ mkRequest request =
 handleRequest :: ParleyDb
               -> ParleyRequest
               -> IO (Either Error Response)
-handleRequest conn rq =
+handleRequest db rq =
   case rq of
-    AddRequest t c -> handleAdd conn t c
-    ViewRequest t  -> dbJSONResponse $ getComments conn t
-    ListRequest    -> dbJSONResponse $ getTopics conn
+    AddRequest t c -> handleAdd db t c
+    ViewRequest t  -> dbJSONResponse $ getComments db t
+    ListRequest    -> dbJSONResponse $ getTopics db
 ```
 
 ##
