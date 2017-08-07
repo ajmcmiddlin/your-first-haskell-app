@@ -4,15 +4,19 @@
 
 ##
 
-How do you apply concepts to a real application?
+Applying concepts to a real application
 
 ##
 
-How do you find which packages to use and how to use them?
+Finding and choosing packages
 
 ##
 
-How do you setup a project?
+Fitting packages together
+
+##
+
+Setting up a project
 
 ## My experience
 
@@ -20,11 +24,26 @@ How do you setup a project?
 
 <img alt="learn all the things" src="images/learn-all-the-things.jpg" />
 
-## 
+<!--
+I thought I needed to learn a huge number of concepts to write something useful - e.g.
 
-Working examples 
+ - lens
+ - Monad Transformers / classy mtl
+-->
 
 ##
 
 Write the code!
+
+<!--
+ - Turns out you don't need them.
+ - Writing something is a great way to learn/solidify
+ - Motivates learning new concepts
+-->
+
+##
+
+Working examples 
+
+<!-- I benefitted greatly from having a template/example to work from -->
 
