@@ -4,7 +4,11 @@
 
 ##
 
-<img src="images/job-done.jpg" alt="job done!" />
+```haskell
+partialConfigParser :: Parser PartialConfig
+partialConfigParser =
+  PartialConfig <$> portParser <*> dbParser
+```
 
 ##
 
@@ -19,14 +23,6 @@ Available options:
   -d,--database SQLITE_FILE
                            Path to sqlite database
   -h,--help                Show this help text
-```
-
-##
-
-```haskell
-partialConfigParser :: Parser PartialConfig
-partialConfigParser =
-  PartialConfig <$> portParser <*> dbParser
 ```
 
 ##
@@ -46,7 +42,19 @@ dbParser =
   
   
   
-   in Last <$> optional (strOption mods)
+               optional  strOption
+```
+
+##
+
+```haskell
+dbParser :: Parser (Last FilePath)
+dbParser =
+  
+  
+  
+  
+      Last <$> optional  strOption
 ```
 
 ##
@@ -71,6 +79,18 @@ portParser =
            <> metavar "PORT"
            <> help "TCP port to accept requests on"
    in Last <$> optional (option auto mods)
+```
+
+##
+
+```haskell
+ 
+ 
+ 
+ 
+ 
+ 
+                        (option auto mods)
 ```
 
 ##
@@ -105,7 +125,18 @@ commandLineParser =
   
   
   
-   in info (partialConfigParser <**> helper) mods
+      info             partialConfigParser
+```
+
+##
+
+```haskell
+commandLineParser :: ParserInfo PartialConfig
+commandLineParser =
+  
+  
+  
+      info (helper <*> partialConfigParser)
 ```
 
 ##
@@ -116,10 +147,6 @@ commandLineParser =
   let mods =  fullDesc
            <> progDesc "Manage comments for a web blog"
            <> header "parley - simple comment management"
-   in info (partialConfigParser <**> helper) mods
+   in info (helper <*> partialConfigParser) mods
 ```
-
-##
-
-<img src="images/job-done.jpg" alt="job done!" />
 
