@@ -2,13 +2,13 @@
 
 ##
 
-<img alt="meanwhile, at the YouTube comment section" src="images/comment-section.jpg" />
-
-##
-
 > Par·ley n.  
 >   
 > To have a discussion, especially with an enemy.
+
+##
+
+<img alt="meanwhile, at the YouTube comment section" src="images/comment-section.jpg" />
 
 ## Requirements
 
@@ -43,6 +43,8 @@ List topics                   /list
 ##
 
 **NOT FOR PRODUCTION USE**
+
+<!-- Not because we can't, but in the interests of simplicity for teaching -->
 
 ## Assumed knowledge
 
