@@ -14,6 +14,24 @@ runDBAction :: IO a -> IO (DatabaseResponse a)
 data ParleyDb = ParleyDb Connection Table
 ```
 
+## Queries
+
+```haskell
+newtype Query = Query {fromQuery Text}
+
+query :: (ToRow q, FromRow r)
+      => Connection -> Query -> q -> IO [r]
+
+execute :: ToRow q
+        => Connection -> Query -> q -> IO ()
+```
+
+## Only
+
+```haskell
+newtype Only a = Only {fromOnly :: a}
+```
+
 ## Initialisation
 
 ##
@@ -28,6 +46,22 @@ initDB :: FilePath
 
 
 
+
+ 
+```
+
+##
+
+```haskell
+initDB :: FilePath
+       -> Table
+       -> IO (Either SQLiteResponse ParleyDb)
+initDB dbPath t@(Table tbl) = runDBAction $ do
+
+
+
+
+ 
 
  
 ```
@@ -144,148 +178,7 @@ dbToParley f a = do
     Right as -> (pure . Right . rights . fmap f) as
 ```
 
-## Listing
-
-##
-
-```haskell
-getTopics :: ParleyDb -> IO (Either Error [Topic])
- 
- 
- 
- 
-```
-
-##
-
-```haskell
-getTopics :: ParleyDb -> IO (Either Error [Topic])
-getTopics (ParleyDb conn (Table t)) =
-  let q = Query ("SELECT DISTINCT(topic) FROM " <> t)
- 
- 
-```
-
-##
-
-```haskell
-getTopics :: ParleyDb -> IO (Either Error [Topic])
-getTopics (ParleyDb conn (Table t)) =
-  let q = Query ("SELECT DISTINCT(topic) FROM " <> t)
-      result = query_ conn q
- 
-```
-
-##
-
-```haskell
-getTopics :: ParleyDb -> IO (Either Error [Topic])
-getTopics (ParleyDb conn (Table t)) =
-  let q = Query ("SELECT DISTINCT(topic) FROM " <> t)
-      result = query_ conn q
-   in dbToParley (mkTopic . fromOnly) result
-```
-
 ## Viewing
-
-##
-
-```haskell
-data DbComment =
-  DbComment { dbCommentId    :: Integer
-            , dbCommentTopic :: Text
-            , dbCommentBody  :: Text
-            , dbCommentTime  :: UTCTime
-            }
-            deriving Show
-```
-
-##
-
-```haskell
-class FromRow a where
-  fromRow :: RowParser a
-
-field :: FromField a => RowParser a
-
-instance FromRow DbComment where
-  fromRow = DbComment <$> field <*> field <*> field <*> field
-```
-
-<!--
-`field :: FromField a => Database.SQLite.Simple.Internal.RowParser a`
-
-Each call to `field` _must_ correspond, in order, to fields returned by a query
--->
-
-##
-
-`DbComment -> Comment`
-
-##
-
-```haskell
-data Comment = Comment CommentId
-                       Topic
-                       CommentText
-                       UTCTime
-               deriving Show
-```
-               
-##
-
-```haskell
-fromDbComment :: DbComment -> Either Error Comment
- 
- 
- 
- 
- 
-```
-
-##
-
-```haskell
-fromDbComment :: DbComment -> Either Error Comment
-fromDbComment dbc =
-  Comment     (CommentId (dbCommentId dbc))
- 
- 
- 
-```
-
-##
-
-```haskell
-fromDbComment :: DbComment -> Either Error Comment
-fromDbComment dbc =
-  Comment     (CommentId (dbCommentId dbc))
-          <$> mkTopic (dbCommentTopic dbc)
- 
- 
-```
-
-##
-
-```haskell
-fromDbComment :: DbComment -> Either Error Comment
-fromDbComment dbc =
-  Comment     (CommentId (dbCommentId dbc))
-          <$> mkTopic (dbCommentTopic dbc)
-          <*> mkCommentText (dbCommentBody dbc)
- 
-```
-
-##
-
-```haskell
-fromDbComment :: DbComment -> Either Error Comment
-fromDbComment dbc =
-  Comment     (CommentId (dbCommentId dbc))
-          <$> mkTopic (dbCommentTopic dbc)
-          <*> mkCommentText (dbCommentBody dbc)
-          <*> pure (dbCommentTime dbc)
-```
 
 ##
 
@@ -341,88 +234,5 @@ getComments (ParleyDb conn _) t =
       p = Only (getTopic t)
       result = query conn q p
    in dbToParley fromDbComment result
-```
-
-## Adding
-
-##
-
-```haskell
-addCommentToTopic :: ParleyDb
-                  -> Topic
-                  -> CommentText
-                  -> IO (Either Error ())
-```
-
-##
-
-```haskell
-addCommentToTopic (ParleyDb conn (Table table)) t c = do
- 
-  let q = Query ("INSERT INTO " <> table
-              <> "(topic, comment, time) "
-              <> "VALUES (:topic, :comment, :time)")
- 
- 
- 
- 
- 
- 
- 
- 
-```
-
-##
-
-```haskell
-addCommentToTopic (ParleyDb conn (Table table)) t c = do
-  now <- getCurrentTime
-  let q = Query ("INSERT INTO " <> table
-              <> "(topic, comment, time) "
-              <> "VALUES (:topic, :comment, :time)")
-      params = [ ":topic" := getTopic t
-               , ":comment" := getComment c
-               , ":time" := now
-               ]
- 
- 
- 
- 
-```
-
-##
-
-```haskell
-addCommentToTopic (ParleyDb conn (Table table)) t c = do
-  now <- getCurrentTime
-  let q = Query ("INSERT INTO " <> table
-              <> "(topic, comment, time) "
-              <> "VALUES (:topic, :comment, :time)")
-      params = [ ":topic" := getTopic t
-               , ":comment" := getComment c
-               , ":time" := now
-               ]
-  result <- runDBAction (executeNamed conn q params)
- 
- 
- 
-```
-
-##
-
-```haskell
-addCommentToTopic (ParleyDb conn (Table table)) t c = do
-  now <- getCurrentTime
-  let q = Query ("INSERT INTO " <> table
-              <> "(topic, comment, time) "
-              <> "VALUES (:topic, :comment, :time)")
-      params = [ ":topic" := getTopic t
-               , ":comment" := getComment c
-               , ":time" := now
-               ]
-  result <- runDBAction (executeNamed conn q params)
-  case result of
-    Left e -> pure (Left (SQLiteError e))
-    Right a -> pure (Right a)
 ```
 
