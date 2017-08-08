@@ -29,6 +29,7 @@ in
       cat $src/slides/title.md \
           $src/slides/intro.md \
           $src/slides/the-app.md \
+          $src/slides/concepts.md \
           $src/slides/types.md \
           $src/slides/data-flow.md \
           $src/slides/configuration.md \
