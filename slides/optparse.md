@@ -74,39 +74,21 @@ portParser =
            <> short 'p'
            <> metavar "PORT"
            <> help "TCP port to accept requests on"
-   in Last <$> optional (option auto mods)
+      portReader = eitherReader (fmap Port . readEither)
+   in Last <$> optional (option portReader mods)
 ```
 
 ##
 
 ```haskell
+readEither :: Read a => String -> Either String a
  
  
  
  
  
- 
-                        (option auto mods)
-```
-
-##
-
-> A parser for things is a function from strings to lists of pairs of things and strings.  
-> <p style="text-align: right; padding-right: 2em; display: block;">-- Fritz Ruehr</p>
-
-##
-
-```haskell
-ReadS :: String -> [(a, String)]
-  
-class Read where
-  readsPrec :: Int -> ReadS a
-  ...
-  
-instance Read Port where
-  readsPrec =
-    let portIt (n, s) = (Port n, s)
-    in fmap (fmap portIt) . readsPrec
+      portReader = eitherReader (fmap Port . readEither)
+                         option portReader
 ```
 
 ##
