@@ -19,3 +19,13 @@ or get big benefits over other languages
 * http://blog.infinitenegativeutility.com/2016/8/resources--laziness--and-continuation-passing-style
 * https://medium.com/@jonathangfischoff/the-partial-options-monoid-pattern-31914a71fc67
 
+## The app
+
+https://github.com/ajmccluskey/parley
+
+## Get help
+
+#qfpl
+#bfpg
+#haskell.au
+
