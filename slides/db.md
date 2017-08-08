@@ -16,7 +16,7 @@ runDBAction :: IO a -> IO (DatabaseResponse a)
 
 ```haskell
 initDB :: FilePath
-       -> Text
+       -> Table
        -> IO (Either SQLiteResponse ParleyDb)
 
 
@@ -32,32 +32,32 @@ initDB :: FilePath
 
 ```haskell
 initDB :: FilePath
-       -> Text
+       -> Table
        -> IO (Either SQLiteResponse ParleyDb)
-initDB dbPath tbl = runDBAction $ do
+initDB dbPath t@(Table tbl) = runDBAction $ do
 
 
 
 
   conn <- open dbPath
 
-  pure (ParleyDb conn (Table tbl))
+  pure (ParleyDb conn t)
 ```
 
 ##
 
 ```haskell
 initDB :: FilePath
-       -> Text
+       -> Table
        -> IO (Either SQLiteResponse ParleyDb)
-initDB dbPath tbl = runDBAction $ do
+initDB dbPath t@(Table tbl) = runDBAction $ do
   let createQ =
         Query ("CREATE TABLE IF NOT EXISTS " <> tbl
             <> " (id INTEGER PRIMARY KEY, topic TEXT,"
             <> "  comment TEXT, time INTEGER)")
   conn <- open dbPath
   execute_ conn createQ
-  pure (ParleyDb conn (Table tbl))
+  pure (ParleyDb conn t)
 ```
 
 ## helper
@@ -115,6 +115,36 @@ dbToParley f a = do
 ```
 
 ## Listing
+
+##
+
+```haskell
+getTopics :: ParleyDb -> IO (Either Error [Topic])
+ 
+ 
+ 
+ 
+```
+
+##
+
+```haskell
+getTopics :: ParleyDb -> IO (Either Error [Topic])
+getTopics (ParleyDb conn (Table t)) =
+  let q = Query ("SELECT DISTINCT(topic) FROM " <> t)
+ 
+ 
+```
+
+##
+
+```haskell
+getTopics :: ParleyDb -> IO (Either Error [Topic])
+getTopics (ParleyDb conn (Table t)) =
+  let q = Query ("SELECT DISTINCT(topic) FROM " <> t)
+      result = query_ conn q
+ 
+```
 
 ##
 
