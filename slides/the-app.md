@@ -1,5 +1,12 @@
 # The app
 
+## Requirements
+
+##
+
+I want comments on my static blog, but I don't want to deploy a database or use
+a third party service
+
 ##
 
 > Par·ley n.  
@@ -9,13 +16,6 @@
 ##
 
 <img alt="meanwhile, at the YouTube comment section" src="images/comment-section.jpg" />
-
-## Requirements
-
-##
-
-I want comments on my static blog, but I don't want to deploy a database or use
-a third party service
 
 ## Spec
 
@@ -40,6 +40,19 @@ List topics                   /list
 </div>
 <div style="clear: both;"></div>
 
+## Libraries
+
+##
+
+Library                     Purpose
+------------------------    ----------------------------
+`aeson`                     JSON encoding
+`sqlite-simple`             Talk to SQLite
+`sqlite-simple-errors`      Exceptions to values
+`optparse-applicative`      Command line parsing
+`wai`                       Web application interface
+`warp`                      Web server
+
 ##
 
 **ONLY AN EDUCATIONAL EXAMPLE**
@@ -58,16 +71,8 @@ List topics                   /list
 
 <img alt="list demo" src="images/demo-not-found.png" style="width: 150%;" />
 
-## Libraries
+## A couple of notes
 
-##
-
-Library                     Purpose
-------------------------    ----------------------------
-`aeson`                     JSON encoding
-`sqlite-simple`             Talk to SQLite
-`sqlite-simple-errors`      Exceptions to values
-`optparse-applicative`      Command line parsing
-`wai`                       Web application interface
-`warp`                      Web server
+ - All code and slides are on Github
+ - Can find me on IRC
 
