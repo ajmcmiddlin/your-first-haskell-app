@@ -2,14 +2,12 @@
 
 ##
 
-<!--
-Haskell is renowned for its type system. Rather than get in the way, it:
+- Model the domain
+- Prevents certain classes of errors
+- Reduces the number of possible programs
+- Documents our code
 
- - Models the domain
- - Prevents certain classes of errors
- - Reduces the number of possible programs
- - Documents our code
--->
+##
 
 ```haskell
 data Comment = Comment CommentId
@@ -48,6 +46,7 @@ data Error = NoTopicInRequest
 ```
 
 <!--
+ - Errors as values, NOT exceptions
  - SQLiteResponse comes from sqlite-simple-errors - wrap it up for our app
  - All of our application errors in one place.
  - Compilers stops us adding a new one and not handling it
