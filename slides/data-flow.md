@@ -38,6 +38,20 @@ app :: ParleyDb
 ##
 
 ```haskell
+mkRequest :: Request
+          -> IO (Either Error ParleyRequest)
+
+handleRequest :: ParleyDb
+              -> ParleyRequest
+              -> IO (Either Error Response)
+
+handleError :: Error
+            -> Response
+```
+
+##
+
+```haskell
 app :: ParleyDb
     -> Request
     -> (Response -> IO ResponseReceived)
@@ -90,20 +104,6 @@ app db request cb = do
   erq <- mkRequest request
   ersp <- handleRq erq
   cb (handleRsp ersp)
-```
-
-##
-
-```haskell
-mkRequest :: Request
-          -> IO (Either Error ParleyRequest)
-
-handleRequest :: ParleyDb
-              -> ParleyRequest
-              -> IO (Either Error Response)
-
-handleError :: Error
-            -> Response
 ```
 
 ## Routing
@@ -188,7 +188,7 @@ handleRequest :: ParleyDb
 handleRequest db rq =
   case rq of
     AddRequest t c -> handleAdd db t c
-    ViewRequest t  -> dbJSONResponse (getComments db t)
+    ViewRequest t  -> getComments db t >>= dbJSONResponse
  
 ```
 
@@ -201,15 +201,15 @@ handleRequest :: ParleyDb
 handleRequest db rq =
   case rq of
     AddRequest t c -> handleAdd db t c
-    ViewRequest t  -> dbJSONResponse (getComments db t)
-    ListRequest    -> dbJSONResponse (getTopics db)
+    ViewRequest t  -> getComments db t >>= dbJSONResponse
+    ListRequest    -> getTopics db >>= dbJSONResponse
 ```
 
 ##
 
 ```haskell
 dbJSONResponse :: ToJSON a
-               => IO (Either Error a)
+               => Either Error a
                -> IO (Either Error Response)
  
  
@@ -217,52 +217,34 @@ dbJSONResponse :: ToJSON a
  
  
  
- 
 ```
 
 ##
 
 ```haskell
 dbJSONResponse :: ToJSON a
-               => IO (Either Error a)
+               => Either Error a
                -> IO (Either Error Response)
-dbJSONResponse iea = do
- 
- 
- 
- 
-  ea <- iea
- 
+dbJSONResponse ea =
+  
+  
+  
+  
+      pure (fmap responseFromJSON ea)
 ```
 
 ##
 
 ```haskell
 dbJSONResponse :: ToJSON a
-               => IO (Either Error a)
+               => Either Error a
                -> IO (Either Error Response)
-dbJSONResponse iea = do
- 
- 
- 
- 
-  ea <- iea
-  pure (fmap responseFromJSON ea)
-```
-
-##
-
-```haskell
-dbJSONResponse :: ToJSON a
-               => IO (Either Error a)
-               -> IO (Either Error Response)
-dbJSONResponse iea = do
+dbJSONResponse ea =
   let responseFromJSON a =
         responseLBS HT.status200
                     [contentHeader JSON]
                     (encode a)
-  ea <- iea
-  pure (fmap responseFromJSON ea)
+   in pure (fmap responseFromJSON ea)
 ```
 
 ## Error -> Response
