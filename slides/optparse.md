@@ -31,10 +31,6 @@ Available options:
 
 ##
 
-`execParser :: ParserInfo a -> IO a`
-
-##
-
 ```haskell
 dbParser :: Parser (Last FilePath)
 dbParser =
@@ -112,6 +108,10 @@ instance Read Port where
     let portIt (n, s) = (Port n, s)
     in fmap (fmap portIt) . readsPrec
 ```
+
+##
+
+`execParser :: Parser     a -> IO a`
 
 ##
 

@@ -25,20 +25,6 @@ easy and convenient to do this.
 ##
 
 ```haskell
-data ParleyRequest = AddRequest Topic CommentText
-                   | ViewRequest Topic
-                   | ListRequest
-```
-
-<!--
- - Correspondance to our spec.
- - Compare to the universe of strings or an open inheritance hierarchy.
- - Exhaustive pattern matches
--->
-
-##
-
-```haskell
 data Error = NoTopicInRequest
            | UnknownRoute
            | NoCommentText
@@ -55,22 +41,6 @@ data Error = NoTopicInRequest
 ##
 
 ```haskell
-data Config = Config { port   :: Port
-                     , dbPath :: FilePath
-                     }
-```
-
-##
-
-```haskell
-data ConfigError = MissingPort
-                 | MissingDbPath
-                 deriving Show
-```
-
-##
-
-```haskell
 data ContentType = PlainText
                  | JSON
 
@@ -82,6 +52,20 @@ render JSON      = "text/json"
 <!--
 Foreshadowing - responses take the content type header as a ByteString.
 Once again, we care about two content types, not the infinite universe of strings, so lock it down with a sum type.
+-->
+
+## Operations as data
+
+```haskell
+data ParleyRequest = AddRequest Topic CommentText
+                   | ViewRequest Topic
+                   | ListRequest
+```
+
+<!--
+ - Correspondance to our spec.
+ - Compare to the universe of strings or an open inheritance hierarchy.
+ - Exhaustive pattern matches
 -->
 
 ## newtype
@@ -159,7 +143,7 @@ module Parley.Types ( ...
                     )
 ```
 
-## sqlite
+## Untyped at the border
 
 ##
 
@@ -176,24 +160,6 @@ data DbComment =
 <!--
 Our database doesn't know about our types. So we use more clumsy representations, but
 only at the edges of our system.
--->
-
-##
-
-```haskell
-class FromRow a where
-  fromRow :: RowParser a
-
-field :: FromField a => RowParser a
-
-instance FromRow DbComment where
-  fromRow = DbComment <$> field <*> field <*> field <*> field
-```
-
-<!--
-`field :: FromField a => Database.SQLite.Simple.Internal.RowParser a`
-
-Each call to `field` _must_ correspond, in order, to fields returned by a query
 -->
 
 ## JSON

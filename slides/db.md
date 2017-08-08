@@ -2,12 +2,16 @@
 
 ## sqlite-simple-errors
 
-##
-
 ```haskell
 type DatabaseResponse a = Either SQLiteResponse a
 
 runDBAction :: IO a -> IO (DatabaseResponse a)
+```
+
+## ParleyDb
+
+```haskell
+data ParleyDb = ParleyDb Connection Table
 ```
 
 ## Initialisation
@@ -60,7 +64,33 @@ initDB dbPath t@(Table tbl) = runDBAction $ do
   pure (ParleyDb conn t)
 ```
 
-## helper
+## Pattern
+
+##
+
+```haskell
+dbToParley ::
+              IO [a]
+           
+ 
+ 
+ 
+ 
+ 
+```
+
+##
+
+```haskell
+dbToParley ::
+              IO [a]
+           -> IO (Either Error [b])
+ 
+ 
+ 
+ 
+ 
+```
 
 ##
 
@@ -160,10 +190,6 @@ getTopics (ParleyDb conn (Table t)) =
 
 ##
 
-`DbComment -> Comment`
-
-##
-
 ```haskell
 data DbComment =
   DbComment { dbCommentId    :: Integer
@@ -173,6 +199,28 @@ data DbComment =
             }
             deriving Show
 ```
+
+##
+
+```haskell
+class FromRow a where
+  fromRow :: RowParser a
+
+field :: FromField a => RowParser a
+
+instance FromRow DbComment where
+  fromRow = DbComment <$> field <*> field <*> field <*> field
+```
+
+<!--
+`field :: FromField a => Database.SQLite.Simple.Internal.RowParser a`
+
+Each call to `field` _must_ correspond, in order, to fields returned by a query
+-->
+
+##
+
+`DbComment -> Comment`
 
 ##
 

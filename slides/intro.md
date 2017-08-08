@@ -8,15 +8,7 @@ Applying concepts to a real application
 
 ##
 
-Finding and choosing packages
-
-##
-
-Fitting packages together
-
-##
-
-Setting up a project
+Navigating the ecosystem
 
 ## My experience
 

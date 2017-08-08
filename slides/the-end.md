@@ -11,7 +11,7 @@ You can use Haskell to write almost anything
 ##
 
 You don't need to learn all of Haskell's abstractions to write an app
-or get big benefits over other languages
+or get big benefits
 
 ## References
 
@@ -25,7 +25,7 @@ https://github.com/ajmccluskey/parley
 
 ## Get help
 
-#qfpl
-#bfpg
-#haskell.au
+\#qfpl  
+\#bfpg  
+\#haskell.au
 
