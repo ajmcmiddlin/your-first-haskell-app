@@ -188,7 +188,7 @@ handleRequest :: ParleyDb
 handleRequest db rq =
   case rq of
     AddRequest t c -> handleAdd db t c
-    ViewRequest t  -> dbJSONResponse $ getComments db t
+    ViewRequest t  -> dbJSONResponse (getComments db t)
  
 ```
 
@@ -201,8 +201,8 @@ handleRequest :: ParleyDb
 handleRequest db rq =
   case rq of
     AddRequest t c -> handleAdd db t c
-    ViewRequest t  -> dbJSONResponse $ getComments db t
-    ListRequest    -> dbJSONResponse $ getTopics db
+    ViewRequest t  -> dbJSONResponse (getComments db t)
+    ListRequest    -> dbJSONResponse (getTopics db)
 ```
 
 ##
