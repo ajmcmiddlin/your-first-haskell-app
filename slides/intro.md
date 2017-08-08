@@ -45,5 +45,23 @@ Write the code!
 
 Working examples 
 
-<!-- I benefitted greatly from having a template/example to work from -->
+<!--
+I benefitted greatly from having a template/example to work from.
+Code and slides available on Github
+-->
+
+## Assumed knowledge
+
+##
+
+`Maybe`  
+`Either`  
+`Monoid`  
+`Functor`  
+`Applicative`  
+`Monad`  
+
+##
+
+..._BUT_ you haven't written an application
 

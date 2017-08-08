@@ -46,20 +46,17 @@ List topics                   /list
 
 <!-- Not because we can't, but in the interests of simplicity of explanation in a 25 minute talk-->
 
-## Assumed knowledge
+##
+
+<img alt="list demo" src="images/demo-list.png" style="width: 150%;" />
 
 ##
 
-`Maybe`  
-`Either`  
-`Monoid`  
-`Functor`  
-`Applicative`  
-`Monad`  
+<img alt="list demo" src="images/demo-view.png" style="width: 150%;" />
 
 ##
 
-..._BUT_ you haven't written an application
+<img alt="list demo" src="images/demo-not-found.png" style="width: 150%;" />
 
 ## Libraries
 
