@@ -13,9 +13,7 @@ a third party service
 >   
 > To have a discussion, especially with an enemy.
 
-##
-
-<img alt="meanwhile, at the YouTube comment section" src="images/comment-section.jpg" />
+## {data-background-image="images/comment-section.jpg" data-background-size=contain}
 
 ## Spec
 

@@ -70,10 +70,7 @@ data ParleyRequest = AddRequest Topic CommentText
 
 ## newtype
 
-##
-
-<img alt="If you're asking whether you should newtype, you should newtype"
-     src="images/newtype.png" />
+## {data-background-image="images/newtype.png" data-background-size=contain}
 
 <!--
 https://twitter.com/mattoflambda/status/892113796927324160

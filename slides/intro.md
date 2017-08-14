@@ -12,9 +12,7 @@ Navigating the ecosystem
 
 ## My experience
 
-##
-
-<img alt="learn all the things" src="images/learn-all-the-things.jpg" />
+## {data-background-image="images/learn-all-the-things.jpg" data-background-size="contain"}
 
 <!--
 I thought I needed to learn a huge number of concepts to write something useful - e.g.
