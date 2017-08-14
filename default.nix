@@ -28,6 +28,7 @@ in
     buildPhase = ''
       cat $src/slides/title.md \
           $src/slides/intro.md \
+          $src/slides/overview.md \
           $src/slides/the-app.md \
           $src/slides/concepts.md \
           $src/slides/types.md \
