@@ -1,4 +1,4 @@
-# Configuration {data-background-image="images/config.png"}
+# Config {data-background-image="images/config.png"}
 
 ##
 

@@ -1,4 +1,4 @@
-# Data flow {data-background-image="images/flow.png"}
+# Flow {data-background-image="images/flow.png"}
 
 ## Wai
 
