@@ -73,6 +73,6 @@ Library                     Purpose
 
 ## A couple of notes
 
- - All code and slides are on Github
- - Can find me on IRC
+ > - All code and slides are on Github
+ > - Can find me on IRC
 

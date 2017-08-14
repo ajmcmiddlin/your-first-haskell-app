@@ -2,10 +2,10 @@
 
 ##
 
-- Model the domain
-- Prevents certain classes of errors
-- Reduces the number of possible programs
-- Documents our code
+> - Model the domain
+> - Prevents certain classes of errors
+> - Reduces the number of possible programs
+> - Documents our code
 
 ##
 

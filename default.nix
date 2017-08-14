@@ -38,7 +38,7 @@ in
           $src/slides/db.md \
           $src/slides/the-end.md \
           > slides.md
-      pandoc -t revealjs --template=$src/template.revealjs --variable=codedir:$out --variable=transition:none --highlight-style=zenburn -s slides.md -o index.html
+      pandoc -i -t revealjs --slide-level=2 --template=$src/template.revealjs --variable=codedir:$out --variable=transition:none --highlight-style=zenburn -s slides.md -o index.html
       rm slides.md
     '';
 
