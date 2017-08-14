@@ -1,4 +1,4 @@
-# Types
+# Types {data-background-image="images/types.png"}
 
 ##
 

@@ -1,4 +1,4 @@
-# The app
+# The app {data-background-image="images/the-app.png"}
 
 ## Requirements
 

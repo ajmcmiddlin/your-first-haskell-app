@@ -1,4 +1,4 @@
-# Command Line Arguments
+# Command Line Arguments {data-background-image="images/cli.png"}
 
 ## optparse-applicative
 

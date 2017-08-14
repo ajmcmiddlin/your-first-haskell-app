@@ -1,4 +1,4 @@
-# Concepts
+# Concepts {data-background-image="images/concepts.png"}
 
 ##
 
