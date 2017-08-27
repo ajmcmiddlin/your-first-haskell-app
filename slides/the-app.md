@@ -57,20 +57,13 @@ Library                     Purpose
 
 <!-- Not because we can't, but in the interests of simplicity of explanation in a 25 minute talk-->
 
-##
+## Proof
 
-<img alt="list demo" src="images/demo-list.png" style="width: 150%;" />
+## {data-background-image="images/demo-list.png" data-background-size="contain"}
 
-##
+## {data-background-image="images/demo-view.png"  data-background-size="contain"}
 
-<img alt="list demo" src="images/demo-view.png" style="width: 150%;" />
+## {data-background-image="images/demo-not-found.png"  data-background-size="contain"}
 
-##
-
-<img alt="list demo" src="images/demo-not-found.png" style="width: 150%;" />
-
-## A couple of notes
-
- > - All code and slides are on Github
- > - Can find me on IRC
+## {data-background-image="images/keep_calm_and_carry_on.jpg"}
 
