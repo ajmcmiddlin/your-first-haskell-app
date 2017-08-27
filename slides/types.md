@@ -162,6 +162,8 @@ Our database doesn't know about our types. So we use more clumsy representations
 only at the edges of our system.
 -->
 
+## JSON
+
 ##
 
 ```haskell
