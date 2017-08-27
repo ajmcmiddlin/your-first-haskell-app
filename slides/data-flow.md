@@ -49,6 +49,8 @@ handleError :: Error
             -> Response
 ```
 
+## {data-background-image="images/flow-diagram.jpg"}
+
 ##
 
 ```haskell
