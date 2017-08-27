@@ -27,5 +27,4 @@ https://github.com/qfpl/parley
 
 \#qfpl  
 \#bfpg  
-\#haskell.au
 
