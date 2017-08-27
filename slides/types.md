@@ -80,6 +80,12 @@ https://twitter.com/mattoflambda/status/892113796927324160
 
 ##
 
+ - Zero cost abstraction
+ - Call out semantics
+ - Compiler errors
+
+##
+
 ```haskell
 newtype Table = Table Text
                 deriving (Show)
