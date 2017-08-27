@@ -81,6 +81,19 @@ portParser =
 ##
 
 ```haskell
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+                         option portReader
+```
+
+##
+
+```haskell
 readEither :: Read a => String -> Either String a
  
  
