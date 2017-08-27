@@ -65,5 +65,3 @@ Library                     Purpose
 
 ## {data-background-image="images/demo-not-found.png"  data-background-size="contain"}
 
-## {data-background-image="images/keep_calm_and_carry_on.jpg"}
-
