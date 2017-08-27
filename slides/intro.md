@@ -1,6 +1,6 @@
 # Motivation
 
-## Getting started is hard
+## Getting started can be intimidating
 
 ##
 
