@@ -1,11 +1,5 @@
 # Types {data-background-image="images/types.png"}
 
-##
-
-> - Model the domain
-> - Prevents certain classes of errors
-> - Reduces the number of possible programs
-> - Documents our code
 
 ##
 
@@ -158,8 +152,6 @@ data DbComment =
 Our database doesn't know about our types. So we use more clumsy representations, but
 only at the edges of our system.
 -->
-
-## JSON
 
 ##
 
