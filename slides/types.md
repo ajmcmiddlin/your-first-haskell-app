@@ -1,5 +1,6 @@
 # Types {data-background-image="images/types.png"}
 
+## Model the domain
 
 ##
 
@@ -48,7 +49,9 @@ Foreshadowing - responses take the content type header as a ByteString.
 Once again, we care about two content types, not the infinite universe of strings, so lock it down with a sum type.
 -->
 
-## Operations as data
+## Actions as data
+
+##
 
 ```haskell
 data ParleyRequest = AddRequest Topic CommentText
