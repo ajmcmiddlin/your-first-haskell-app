@@ -21,7 +21,7 @@ or get big benefits
 
 ## The app
 
-https://github.com/ajmccluskey/parley
+https://github.com/qfpl/parley
 
 ## Get help
 
