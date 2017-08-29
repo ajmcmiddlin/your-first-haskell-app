@@ -7,8 +7,8 @@ your first app. The code for the app is available in a [separate repo](https://g
 
 Multiple versions of this talk have been presented
 
- - An [earlier practice](/qfpl/your-first-haskell-app/tree/compose-melb-2017) run was given at on 2017-08-09
- - A [better version](/qfpl/your-first-haskell-app/tree/bfpg-2017-08-09) was presented at Melbourne's ComposeConf 2017
+ - An [earlier practice](https://github.com/qfpl/your-first-haskell-app/tree/compose-melb-2017) run was given at on 2017-08-09
+ - A [better version](https://github.com/qfpl/your-first-haskell-app/tree/bfpg-2017-08-09) was presented at Melbourne's ComposeConf 2017
 
 ## Building
 
